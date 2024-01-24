@@ -1,4 +1,4 @@
-const root = location.href.includes('github') ? '/dougs-guide/' : '/'
+const root = '/'
 
 function Route(parent) {
     checkHash()
