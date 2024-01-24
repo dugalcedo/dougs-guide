@@ -1,0 +1,229 @@
+<h2>Higher-order array methods</h2>
+
+<style>
+    table .same {
+        background-color: lightgray;
+    }
+
+    #hoam-table > tbody > tr:nth-child(3n) {
+        border-bottom: 10px solid black;
+    }
+
+    #hoam-table th[colspan="6"] {
+        text-align: center;
+        padding: 0;
+        letter-spacing: 5ch;
+        opacity: 0.5;
+    }
+
+    #hoam-table th[colspan="6"], #hoam-table td:has(dug-pre) {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<table class="table table-hover table-bordered" id="hoam-table">
+    <thead>
+        <tr>
+            <th>method</th>
+            <th>what it does</th>
+            <th>parameters</th>
+            <th>callback parameters</th>
+            <th>what the callback should return</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Array.forEach(cb)
+            </td>
+            <td>
+                Executes a callback for each element in the array.
+            </td>
+            <td>
+                <ul>
+                    <li>cb: callback(x, i, a)</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>x: array element</li>
+                    <li>i: iteration count</li>
+                    <li>a: original array</li>
+                </ul>
+            </td>
+            <td>
+                nothing
+            </td>
+        </tr>
+        <tr><th colspan="6">example</th></tr>
+        <tr>
+            <td colspan="2">
+                <dug-pre>
+                    const numbers = [2, 4, 6, 8, 10]
+                </dug-pre>
+            </td>
+            <td colspan="2">
+                <dug-pre>
+                    numbers.forEach((n, i) => {
+                        console.log(n*i)
+                    })
+                </dug-pre>
+            </td>
+            <td>
+                <i>Console:</i>
+                <br>
+                <dug-pre>
+                    0
+                    4
+                    12
+                    24
+                    40
+                </dug-pre>
+            </td>
+        </tr>
+        <!-- end forEach -->
+
+        <tr>
+            <td>
+                Array.map(cb)
+            </td>
+            <td>
+                From the array, <strong>returns a new array of the same length</strong> based on what the provided callback returns.
+            </td>
+            <td colspan="2" class="same">
+                same as above
+            </td>
+            <td>
+                The desired array element. If nothing is returned, <em>undefined</em> will be pushed to the new array.
+            </td>
+        </tr>
+        <tr><th colspan="6">example</th></tr>
+        <tr>
+            <td colspan="2">
+                <dug-pre>
+                    const animals = [
+                        {name: 'moose', order: 'mammalia'},
+                        {name: 'eagle', order: 'aves'},
+                        {name: 'seal', order: 'mammalia'}
+                    ]
+                </dug-pre>
+            </td>
+            <td colspan="2">
+                <dug-pre>
+                    const animalNames = animals.map((animal) => {
+                        return animal.name
+                    })
+                    console.log(animalNames)
+                </dug-pre>
+            </td>
+            <td>
+                <i>Console:</i>
+                <br>
+                <dug-pre>
+                    ['moose', 'eagle', 'seal']
+                </dug-pre>
+            </td>
+        </tr>
+        <!-- end map -->
+
+        <tr>
+            <td>
+                Array.filter(cb)
+            </td>
+            <td>
+                From the array, <strong>returns a new array containing only the original elements where the provided callback returned something truthy</strong>.
+            </td>
+            <td colspan="2" class="same">
+                same as above
+            </td>
+            <td>
+                A value which is truthy if the current element is desired in the new array.
+            </td>
+        </tr>
+        <tr><th colspan="6">example</th></tr>
+        <tr>
+            <td colspan="2" class="same">
+                same as above
+            </td>
+            <td colspan="2">
+                <dug-pre>
+                    const mammals = animals.map((animal) => {
+                        return animal.order === 'mammalia'
+                    })
+                    console.log(mammals)
+                </dug-pre>
+            </td>
+            <td>
+                <i>Console:</i>
+                <br>
+                <dug-pre>
+                    [
+                        {name: 'moose', order: 'mammalia'}, 
+                        {name: 'seal', order: 'mammalia'}
+                    ]
+                </dug-pre>
+            </td>
+        </tr>
+        <!-- end filter -->
+
+        <tr>
+            <td>
+                Array.find(cb)
+            </td>
+            <td>
+                Same as fiter, but instead of returning an array, it <strong>only returns the first match</strong>. If none are found, it returns undefined.
+            </td>
+            <td class="same" colspan="4">
+                same as above
+            </td>
+        </tr>
+        <tr><th colspan="6">example</th></tr>
+        <tr>
+            <td class="same" colspan="2">same as above</td>
+            <td colspan="2">
+                <dug-pre>
+                    const eagle = animals.find((animal) => {
+                        return animal.name === 'eagle'
+                    })
+                    console.log(eagle)
+                </dug-pre>
+            </td>
+            <td>
+                <i>Console:</i><br>
+                <dug-code>{name: 'eagle', order: 'aves'}</dug-code>
+            </td>
+        </tr>
+        <!-- end of find -->
+
+        <tr>
+            <td>
+                Array.every(cb)
+            </td>
+            <td>
+                <strong>Returns true</strong> if the provided callback always returns something truthy, else <strong>false</strong>.
+            </td>
+            <td class="same" colspan="2">
+                same as above
+            </td>
+            <td>
+                A value which is truthy or falsy, representing some condition which every array element must meet.
+            </td>
+        </tr>
+        <tr><th colspan="6">example</th></tr>
+        <tr>
+            <td colspan="2" class="same">same as above</td>
+            <td colspan="2">
+                <dug-pre>
+                    const allAnimalsAreMammals = animals.every((animal) => {
+                        return animal.order === 'mammalia'
+                    })
+                    console.log(allAnimalsAreMammals)
+                </dug-pre>
+            </td>
+            <td>
+                <i>Console:</i><br>
+                <dug-code>false</dug-code>
+            </td>
+        </tr>
+    </tbody>
+</table>

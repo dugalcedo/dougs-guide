@@ -1,0 +1,116 @@
+<h2>CSS Combinators</h2>
+<h3>Combining selectors</h3>
+
+<style>
+    #combinator-table {
+        tr > td:nth-child(4) {
+            width: 33%;
+        }
+    }
+</style>
+
+<table class="table table-hover table-bordered" id="combinator-table">
+    <tr>
+        <th>
+            combinator
+        </th>
+        <th>
+            name
+        </th>
+        <th>
+            what it does
+        </th>
+        <th>
+            example
+        </th>
+        <th>
+            What the example would select.
+        </th>
+    </tr>
+    <tr>
+        <td>
+            [space]
+        </td>
+        <td>
+            descendant combinator
+        </td>
+        <td>
+            Selects elements within another element.
+        </td>
+        <td>
+            <dug-pre>
+                #main-navbar li {
+                    padding: 10px;
+                }
+            </dug-pre>
+        </td>
+        <td>
+            Any element with a tagname of "li" that is inside of the element with an id of "main-navbar"
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &gt;
+        </td>
+        <td>
+            child combinator
+        </td>
+        <td>
+            Selects elements that are a <strong>direct child</strong> of another element. In other words, it's like the descendant combinator, but only looks <strong>one level down</strong>.
+        </td>
+        <td>
+            <dug-pre>
+                main > * {
+                    width: 1200px;
+                    max-width: 100%;
+                    margin: auto;
+                }
+            </dug-pre>
+        </td>
+        <td>
+            Any element of any tagname that is a <strong>direct child</strong> of elements that have a tagname of "main".
+        </td>
+    </tr>
+    <tr>
+        <td>
+            +
+        </td>
+        <td>
+            first sibling combinator
+        </td>
+        <td>
+            Selects elements that are the <strong>first sibling <u>after</u></strong> another element.
+        </td>
+        <td>
+            <dug-pre>
+                input + button {
+                    margin-left: 1rem;
+                }
+            </dug-pre>
+        </td>
+        <td>
+            Any button that comes directly after an input.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            ~
+        </td>
+        <td>
+            general sibling combinator
+        </td>
+        <td>
+            Selects <strong>all</strong> sibling elements that come <strong>after</strong> another element. In other words, it's like the first sibling combinator, but selects all siblings after. Not just the first.
+        </td>
+        <td>
+            <dug-pre>
+                .gallery-photo ~ blockquote {
+                    font-style: italic;
+                }   
+            </dug-pre>
+        </td>
+        <td>
+            Any element with a tagname of "blockquote" who is a sibling that comes after an element with a class of "gallery-photo".
+        </td>
+    </tr>
+</table>

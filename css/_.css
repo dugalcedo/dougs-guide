@@ -1,0 +1,54 @@
+@import './theme.css';
+@import './layout.css';
+
+td.method {
+    background-color: aquamarine;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+main {
+    padding-bottom: 5rem;
+}
+
+main > *:not(table) {
+    max-width: 800px;
+}
+
+.vocab {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .5rem;
+    margin: 1rem;
+    padding: .5rem;
+
+    background-color: rgb(63, 114, 223);
+    color: white;
+
+    & > * {
+        background-color: rgba(255,255,255,0.3);
+        padding: .5rem;
+    }
+
+    & .word {
+        &::before {
+            display: block;
+            font-weight: 900;
+            content: "Word";
+        }
+    }
+
+    & .definition {
+        &::before {
+            display: block;
+            font-weight: 900;
+            content: "Definition";
+        }
+    }
+}
+
+dug-pre {
+    background-color: #e6e6e6;
+    padding: .5rem;
+    border: 1px dashed pink;
+}

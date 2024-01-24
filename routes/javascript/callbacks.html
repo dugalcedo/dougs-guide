@@ -1,0 +1,87 @@
+<h2>Callbacks</h2>
+
+<div class="vocab">
+    <div class="word">
+        Callback function
+    </div>
+    <div class="definition">
+        A function which <strong>is passed to</strong> another function as an argument.
+    </div>
+</div>
+
+<div class="vocab">
+    <div class="word">
+        Higher-order function
+    </div>
+    <div class="definition">
+        A function that <strong>takes</strong> a function in its parameters. <i>(or that returns a function)</i>
+    </div>
+</div>
+
+<h3>A simple example</h3>
+
+<dug-pre>
+    function add(x, y) {
+        return x + y
+    }
+</dug-pre>
+
+<p>
+    Here is a simple function that adds two numbers together. This is not yet a callback function, because we have not passed it as an argument to any other functions. It is not a higher-order function either, because it does not expect any functions in its parameters.
+</p>
+
+<dug-pre>
+    function calculate(x, y, cb) {
+        return cb(x, y)
+    }
+</dug-pre>
+
+<p>
+    Here is a function which is similar to add, but instead of adding the parameters <i>x</i> and <i>y</i>, it calls the third argument, which is assumed to be a function, and returns that function's own return value. <strong>This</strong> function is a higher-order function, because it receives another function and calls it. <span class="text-bg-warning">Note</span> that this function is <strong>not returning a function</strong>. Since it calls the function <i>cb</i>, what is actually returned is the <b>return value of <i>cb</i></b>.
+</p>
+
+<dug-pre>
+    let sum = calculate(7, -10, add)
+    console.log(sum)
+</dug-pre>
+<i>Console: </i><dug-code>-3</dug-code>
+
+<p>
+    Now here, <i>add</i> <strong>is</strong> a callback function, because it was <strong>passed to <i>calculate</i> as an argument</strong>. <span class="text-bg-warning">Note</span> that <strong>we did not invoke <i>add</i></strong>. We handed it over to <i>calculate</i>, and <i>calculate</i> invoked <i>add</i> <strong>for us</strong>.
+</p>
+
+<h4>Another example</h4>
+
+<dug-pre>
+    function forArray(array, cb) {
+        for (let i = 0; i < array.length; i++) {
+            cb(array[i], i)
+        }
+    }
+
+    let numbers = [-3, 0, 3, 6, 9, 12]
+
+    function printMultProblem(x, y) {
+        console.log(`${x} times ${y} is ${x*y}.`)
+    }
+
+    forArray(numbers, printMultProblem)
+</dug-pre>
+<br><br>
+<i>Console:</i>
+<dug-pre>
+    -3 times 0 is 0.
+    0 times 1 is 0.
+    3 times 2 is 6.
+    6 times 3 is 18.
+    9 times 4 is 36.
+    12 times 5 is 60.
+</dug-pre><br><br>
+
+<p>
+    <i>forArray</i> is a function which takes an array called <i>array</i> and a callback called <i>cb</i>. Inside is a for loop that repeats for the length of the array. Each time, it calls <i>cb</i> and passes in, as arguments, the array element and the index. In javascript, there is a built in array method called forEach which can already do this, but knowing how it works under the hood will help you understand callbacks better. The above code can be re-written with forEach like so:
+</p>
+
+<dug-pre>
+    numbers.forEach(printMultProblem)
+</dug-pre>
