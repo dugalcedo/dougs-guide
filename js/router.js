@@ -1,10 +1,12 @@
+const root = location.href.includes('github') ? '/dougs-guide/' : '/'
+
 function Route(parent) {
     checkHash()
     window.addEventListener('hashchange', checkHash)
 
     async function checkHash() {
         const hash = location.hash || '#'
-        const route = `/routes/${hash.replace('#', '')||'home'}.html`
+        const route = `${root}routes/${hash.replace('#', '')||'home'}.html`
         const html = await getHTML(route)
         parent.innerHTML = html
         runJS(route)
@@ -17,7 +19,7 @@ function Route(parent) {
     }
 
     async function get404() {
-        let res = await fetch('/routes/404.html')
+        let res = await fetch(root + 'routes/404.html')
         return await res.text()
     }
     
